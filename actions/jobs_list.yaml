@@ -1,0 +1,20 @@
+ref: jenkins.jobs_list
+label: "List Jobs"
+description: "List jobs and folders to a bounded folder depth"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: jenkins_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: jenkins.credentials, required: true}
+  folder_depth: {type: integer, minimum: 0, maximum: 10, default: 3}
+  timeout_seconds: {type: integer, minimum: 1, maximum: 120, default: 30}
+output:
+  operation: {type: string}
+  data: {type: any}
+  meta: {type: object}
+tags: [jenkins, job, folder, read]

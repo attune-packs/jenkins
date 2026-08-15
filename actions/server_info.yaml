@@ -1,0 +1,19 @@
+ref: jenkins.server_info
+label: "Get Server Info"
+description: "Get bounded controller information and verify the X-Jenkins identity header"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: jenkins_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: jenkins.credentials, required: true}
+  timeout_seconds: {type: integer, minimum: 1, maximum: 120, default: 30}
+output:
+  operation: {type: string}
+  data: {type: any}
+  meta: {type: object}
+tags: [jenkins, server, read]

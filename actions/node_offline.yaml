@@ -1,0 +1,22 @@
+ref: jenkins.node_offline
+label: "Mark Node Offline"
+description: "Safely mark one node temporarily offline without using Jenkins' race-prone toggle"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: jenkins_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: jenkins.credentials, required: true}
+  node_name: {type: string, required: true}
+  message: {type: string, required: true, description: "Offline reason, maximum 256 characters"}
+  confirmation: {type: string, required: true, description: "Exactly: offline node <node_name>"}
+  timeout_seconds: {type: integer, minimum: 1, maximum: 120, default: 30}
+output:
+  operation: {type: string}
+  data: {type: any}
+  meta: {type: object}
+tags: [jenkins, node, offline]

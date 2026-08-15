@@ -1,0 +1,24 @@
+ref: jenkins.artifact_download
+label: "Download Build Artifact"
+description: "Download a listed artifact into ATTUNE_ARTIFACTS_DIR with confinement and size limits"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: jenkins_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: jenkins.credentials, required: true}
+  job_path: {type: string, required: true}
+  build_number: {type: integer, minimum: 1, required: true}
+  artifact_path: {type: string, required: true, description: "Exact relativePath returned by artifact_list"}
+  destination: {type: string, required: true, description: "Relative path beneath ATTUNE_ARTIFACTS_DIR"}
+  max_bytes: {type: integer, minimum: 1, maximum: 268435456, default: 268435456}
+  timeout_seconds: {type: integer, minimum: 1, maximum: 120, default: 30}
+output:
+  operation: {type: string}
+  data: {type: any}
+  meta: {type: object}
+tags: [jenkins, build, artifact, download]

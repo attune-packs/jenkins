@@ -1,0 +1,22 @@
+ref: jenkins.job_create
+label: "Create Job"
+description: "Create a job from validated privileged XML after exact confirmation"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: jenkins_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: jenkins.credentials, required: true}
+  job_path: {type: string, required: true}
+  config_xml: {type: string, required: true, secret: true, description: "Privileged Jenkins job XML; maximum 1 MiB"}
+  confirmation: {type: string, required: true, description: "Exactly: create job <job_path>"}
+  timeout_seconds: {type: integer, minimum: 1, maximum: 120, default: 30}
+output:
+  operation: {type: string}
+  data: {type: any}
+  meta: {type: object}
+tags: [jenkins, job, create, privileged, xml]

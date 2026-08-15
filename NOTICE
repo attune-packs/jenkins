@@ -1,0 +1,17 @@
+Jenkins Attune Pack
+Copyright 2026 Attune
+
+This product adapts concepts and behavior from the StackStorm Exchange Jenkins
+pack, version 1.0.1, revision
+884692248ce19ae3220e88b5f4f5d446394e683a, originally authored by James Fryman
+with contributions from Igor Cherkaev and StackStorm Exchange contributors.
+That work is licensed under the Apache License, Version 2.0.
+
+The implementation has been substantially changed for Attune: direct Jenkins
+HTTP API access replaces StackStorm and python-jenkins runners; credentials are
+resolved from Attune Key; TLS, CSRF, response limits, path encoding, polling,
+confirmation, XML, and artifact controls were added; outputs and action
+metadata were redesigned.
+
+Jenkins is a trademark of LF Charities Inc. This pack is not endorsed by or
+affiliated with the Jenkins project.

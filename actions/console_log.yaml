@@ -1,0 +1,23 @@
+ref: jenkins.console_log
+label: "Read Progressive Console Log"
+description: "Read one bounded progressive console log chunk and return its next offset"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: jenkins_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: jenkins.credentials, required: true}
+  job_path: {type: string, required: true}
+  build_number: {type: integer, minimum: 1, required: true}
+  start: {type: integer, minimum: 0, default: 0}
+  max_bytes: {type: integer, minimum: 1, maximum: 2097152, default: 2097152}
+  timeout_seconds: {type: integer, minimum: 1, maximum: 120, default: 30}
+output:
+  operation: {type: string}
+  data: {type: any}
+  meta: {type: object}
+tags: [jenkins, build, console, log, read]

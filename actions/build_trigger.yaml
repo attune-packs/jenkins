@@ -1,0 +1,25 @@
+ref: jenkins.build_trigger
+label: "Trigger Build"
+description: "Trigger one build and optionally poll its exact queue item until start"
+enabled: true
+runner_type: python
+runtime_version: ">=3.10"
+entry_point: jenkins_action.py
+parameter_delivery: stdin
+parameter_format: json
+output_format: json
+default_execution_permission_set_refs: [standard]
+parameters:
+  credential_key: {type: string, default: jenkins.credentials, required: true}
+  job_path: {type: string, required: true}
+  parameters: {type: object, default: {}, secret: true, description: "String, number, or boolean build parameters"}
+  build_token_name: {type: string, description: "Name in credential Key build_tokens; never the token itself"}
+  wait_for_start: {type: boolean, default: false}
+  max_wait_seconds: {type: integer, minimum: 1, maximum: 3600, default: 300}
+  poll_interval_seconds: {type: integer, minimum: 1, maximum: 30, default: 3}
+  timeout_seconds: {type: integer, minimum: 1, maximum: 120, default: 30}
+output:
+  operation: {type: string}
+  data: {type: any}
+  meta: {type: object}
+tags: [jenkins, build, queue, trigger]
